@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to top, #0f2027, #203a43, #2c5364);
+    color: white;
+    overflow: hidden;
+
+    transition: background 1s ease-in-out;
+}
+
+.container {
+    padding: 60px 20px 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top bar */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    z-index: 1000;
+    font-weight: 800;
+}
+
+/* Back button */
+.back-button {
+    background: rgba(255, 255, 255, 0.3);
+    margin-right: 25px;
+    color: #0a0a0a;
+    padding: 0.5rem 1rem;
+    border-radius: 18px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+/* Title */
+.location-title {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+    margin: 0.25rem 0;
+    color: #f0f0f0;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    word-break: break-word;
+}
+
+/* Weather summary */
+.weather-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 0.5rem 0;
+    color: #f8f8f8;
+}
+
+.weather-info img {
+    width: 70px;
+    height: 65px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* Temperature */
+.temp {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0.25rem 0;
+    color: #ffffff;
+}
+
+/* Other info */
+#weatherResult p {
+    margin: 2px 0 15px;
+    font-size: 1.3rem;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Forecast heading */
+h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+h4 {
+    color: white;
+}
+
+/* Forecast container */
+.forecast-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+    padding-bottom: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+}
+
+/* Individual forecast card */
+.forecast-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 140px;
+    /* Fixed width */
+    height: 220px;
+    /* Fixed height */
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #1c1c1e;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.3s ease;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: cardEnter 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Ensures even spacing */
+}
+
+
+
+.forecast-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 180, 255, 0.4);
+}
+
+.forecast-card img {
+    width: 48px;
+    height: 48px;
+    margin: 6px 45px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.forecast-day {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #eee;
+}
+
+/* Night mode */
+body.night-mode {
+    background: linear-gradient(135deg, #141727 0%, #1c2043 100%);
+    color: #e0e0ff;
+}
+
+body.night-mode .location-title,
+body.night-mode .temp,
+body.night-mode .forecast-day,
+body.night-mode h4,
+body.night-mode #weatherResult p {
+    color: #cfd7ff;
+}
+
+body.night-mode .forecast-card {
+    background: rgba(35, 40, 75, 0.6);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.night-mode .forecast-card:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.7);
+}
+
+/*-----------------------------------------------------------------*/
+
+/* Animate weather detail entries */
+.weather-result>p {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0.3rem 0;
+    color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: fadeSlideUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+/* Keyframe for fade and slide */
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Emoji icons made bigger for emphasis */
+.weather-result>p::before {
+    font-size: 1.6rem;
+}
+
+@keyframes cardEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
