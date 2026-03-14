@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weatherly</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <!-- Optional -->
+</head>
+
+<body>
+    <div class="container fade-in">
+        <h1 class="weather-title">Weatherly</h1>
+
+        <h3 id="greeting" class="greeting-text"></h3>
+
+        <div id="weather-icon" class="icon-bounce">⛅</div>
+
+        <input type="text" id="cityInput" placeholder="Enter city name" />
+
+        <button onclick="goToOutput()">Get Weather</button>
+
+        <p class="quote-text">“Let the sky guide your day.”</p>
+    </div>
+
+    <script>
+        function goToOutput() {
+            const city = document.getElementById("cityInput").value.trim();
+            if (!city) {
+                alert("Please enter a city name.");
+                return;
+            }
+            localStorage.setItem("cityName", city);
+            window.location.href = "output.html";
+        }
+
+        window.onload = function () {
+            const hour = new Date().getHours();
+            const greeting = document.getElementById("greeting");
+            if (hour < 12) greeting.innerHTML = "Good morning <span>🌅</span>";
+            else if (hour < 18) greeting.innerHTML = "Good afternoon <span>☀️</span>";
+            else greeting.innerHTML = "Good evening <span>🌙</span>";
+        };
+    </script>
+</body>
+
+</html>
